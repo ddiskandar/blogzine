@@ -136,10 +136,11 @@
                         <img class="object-cover w-24 h-24 md:h-36 md:w-48" src="{{ asset('images/martin-eriksson-iIwkNVPI7vQ-unsplash.jpg') }}" alt="">
                     </div>
                     <div class="space-y-1">
-                        <div class="flex items-center text-xs md:text-sm justify-between text-slate-600 ">
-                            <div>
+                        <div class="flex items-center mb-2 text-xs md:text-sm justify-between text-slate-600 ">
+                            <div class="flex items-center space-x-2">
+                                <img class="object-cover w-6 h-6 rounded-full" src="{{ asset('images/martin-eriksson-iIwkNVPI7vQ-unsplash.jpg') }}" alt="">
                                 <span><a href="/" class="font-semibold">Dede Iskandar</a></span>
-                                <span class="hidden md:inline">pada</span> 29 Mei 2022
+                                <span> ·  29 Mei 2022</span>
                             </div>
                             <a href="/">
                                 <div class="bg-slate-100 hover:bg-slate-200 transition py-1 px-3 rounded-full">
@@ -166,7 +167,6 @@
                 </li>
                 @endforeach
             </ul>
-
         </div>
     </section>
 
