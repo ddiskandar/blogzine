@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 Route::view('/single', 'single');
+Route::view('/category', 'category');
 
 Route::middleware([
     'auth:sanctum',
