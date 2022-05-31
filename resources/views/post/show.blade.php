@@ -43,9 +43,11 @@
             </section>
             <h1 class="text-4xl font-bold mb-4">{{ $post->title }}</h1>
 
+            @if (isset($post->thumbnail))
             <section class="pb-4">
-                <img class="w-full aspect-video" src="{{ asset('images/martin-eriksson-iIwkNVPI7vQ-unsplash.jpg') }}" alt="">
+                <img class="w-full object-cover aspect-video" src="{{ $post->getThumbnail() }}" alt="">
             </section>
+            @endif
 
             <article class="prose max-w-none font-serif">
                 {!! $post->body !!}
