@@ -13,6 +13,10 @@ class Post extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -23,10 +27,10 @@ class Post extends Model
         return Str::limit(strip_tags($this->body), $limit);
     }
 
-    public function thumbnail($width = 400, $height = 300)
+    public function thumbnail($width = 200, $height = 200)
     {
         if ($this->thumbnail) {
-            return "https://source.unsplash.com/{$this->thumbnail}/{$width}x{$height}";
+            return $this->thumbnail;
         }
 
         return asset('images/default-background.svg');
@@ -64,56 +68,6 @@ class Post extends Model
         return $this->likes()->where('user_id', $user->id)->exists();
     }
 
-    public function ispublished(): bool
-    {
-        return ! $this->isNotpublished();
-    }
-
-    public function isNotpublished(): bool
-    {
-        return $this->published_at === null;
-    }
-
-    public function isApproved(): bool
-    {
-        return ! $this->isNotApproved();
-    }
-
-    public function isNotApproved(): bool
-    {
-        return $this->approved_at === null;
-    }
-
-    public function isDeclined(): bool
-    {
-        return ! $this->isNotDeclined();
-    }
-
-    public function isNotDeclined(): bool
-    {
-        return $this->declined_at === null;
-    }
-
-    public function isPublished(): bool
-    {
-        return ! $this->isNotPublished();
-    }
-
-    public function isNotPublished(): bool
-    {
-        return $this->isNotpublished() || $this->isNotApproved() || $this->isDeclined();
-    }
-
-    public function isAwaitingApproval(): bool
-    {
-        return $this->ispublished() && $this->isNotApproved() && $this->isNotDeclined();
-    }
-
-    public function isNotAwaitingApproval(): bool
-    {
-        return ! $this->isAwaitingApproval();
-    }
-
     public function readTime()
     {
         $minutes = round(str_word_count($this->body) / 200,);
@@ -126,6 +80,11 @@ class Post extends Model
         return $query->whereNotNull('published_at');
     }
 
+    public function scopeDraft(Builder $query): Builder
+    {
+        return $query->whereNull('published_at');
+    }
+
     public function scopeRecent(Builder $query): Builder
     {
         return $query->published()
@@ -136,6 +95,7 @@ class Post extends Model
     {
         return $query->published()
             ->withCount('likes')
+            ->orderBy('views_count', 'desc')
             ->orderBy('likes_count', 'desc')
             ->orderBy('published_at', 'desc');
     }
@@ -143,11 +103,50 @@ class Post extends Model
     public function scopeTrending(Builder $query): Builder
     {
         return $query->published()
-            ->withCount(['likes' => function ($query) {
-                $query->where('created_at', '>=', now()->subWeek());
-            }])
+            ->withCount('likes', 'comments')
+            ->orderBy('comments_count', 'desc')
+            ->orderBy('views_count', 'desc')
             ->orderBy('likes_count', 'desc')
             ->orderBy('published_at', 'desc');
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlugAttribute(string $slug)
+    {
+        $this->attributes['slug'] = $this->generateUniqueSlug($slug);
+    }
+
+    public static function findBySlug(string $slug): self
+    {
+        return static::where('slug', $slug)->firstOrFail();
+    }
+
+    private function generateUniqueSlug(string $value): string
+    {
+        $slug = $originalSlug = Str::slug($value) ?: Str::random(5);
+        $counter = 0;
+
+        while ($this->slugExists($slug, $this->exists ? $this->id() : null)) {
+            $counter++;
+            $slug = $originalSlug.'-'.$counter;
+        }
+
+        return $slug;
+    }
+
+    private function slugExists(string $slug, int $ignoreId = null): bool
+    {
+        $query = $this->where('slug', $slug);
+
+        if ($ignoreId) {
+            $query->where('id', '!=', $ignoreId);
+        }
+
+        return $query->exists();
     }
 
 }

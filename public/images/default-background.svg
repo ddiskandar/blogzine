@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200"
+   height="200"
+   viewBox="0 0 52.916665 52.916668"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="default-background.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="1.3077309"
+     inkscape:cx="105.90864"
+     inkscape:cy="62.704032"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       style="fill:#ececec;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+       id="g29"
+       transform="matrix(1.1529906,0,0,1.141274,12.340922,11.312849)">
+      <rect
+         style="fill:#ececec;stroke:none;stroke-width:0.471223"
+         id="rect284"
+         width="47.646893"
+         height="46.882504"
+         x="-11.696046"
+         y="-9.9124737" />
+    </g>
+    <path
+       d="m 19.955841,16.806074 h 12.352613 a 2.2459296,2.2459296 0 0 1 2.24593,2.24593 v 13.475577 a 2.2459296,2.2459296 0 0 1 -2.24593,2.24593 H 19.955841 A 1.1229648,1.1229648 0 0 1 18.832877,33.650546 V 17.929039 a 1.1229648,1.1229648 0 0 1 1.122964,-1.122965 m 3.368895,0 v 20.213367"
+       id="path13"
+       style="fill:none;stroke:#cccccc;stroke-width:2.24593;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="27.816595"
+       y1="21.297934"
+       x2="30.062525"
+       y2="21.297934"
+       id="line15"
+       style="fill:none;stroke:#cccccc;stroke-width:2.24593;stroke-linecap:round;stroke-linejoin:round" />
+    <line
+       x1="27.816595"
+       y1="25.789793"
+       x2="30.062525"
+       y2="25.789793"
+       id="line17"
+       style="fill:none;stroke:#cccccc;stroke-width:2.24593;stroke-linecap:round;stroke-linejoin:round" />
+  </g>
+</svg>

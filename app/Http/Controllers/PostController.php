@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -25,7 +26,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('post.create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -36,7 +41,15 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $post = Post::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'slug' => $request->title,
+            'body' => $request->body,
+            'category_id' => $request->categoryId,
+        ]);
+
+        return to_route('me')->banner('Story has been succesfully added!.');;
     }
 
     /**
@@ -47,7 +60,22 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post = $post;
+        $post->load('author', 'author.profile')->loadCount('likes', 'comments');
+
+        $author_posts = Post::query()
+            ->where('user_id', $post->author->id)
+            ->whereNot('id', $post->id)
+            ->with('category')
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('post.show', [
+            'post' => $post,
+            'author_posts' => $author_posts,
+        ]);
     }
 
     /**

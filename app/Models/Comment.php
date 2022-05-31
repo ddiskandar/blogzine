@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function post()
     {
         return $this->belongsTo(Post::class);
@@ -28,7 +30,7 @@ class Comment extends Model
 
     public function likes()
     {
-        return $this->morphToMany('App\User', 'likable')->withTimestamps();
+        return $this->morphToMany('App\Models\User', 'likable')->withTimestamps();
     }
 
     public function isLikedBy(User $user)

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -58,8 +59,7 @@ class DatabaseSeeder extends Seeder
             $post1 = Post::factory()->create([
                 'user_id' => $user1->id,
                 'category_id' => rand(1, 10),
-                'submitted_at' => now(),
-                'approved_at' => now(),
+                'published_at' => now(),
                 'views_count' => rand(1,999),
             ]);
 
@@ -72,8 +72,7 @@ class DatabaseSeeder extends Seeder
             $post2 = Post::factory()->create([
                 'user_id' => $user2->id,
                 'category_id' => rand(1, 10),
-                'submitted_at' => now(),
-                'approved_at' => now(),
+                'published_at' => now(),
                 'views_count' => rand(1,999),
             ]);
 
@@ -87,8 +86,7 @@ class DatabaseSeeder extends Seeder
             $post = Post::factory()->create([
                 'user_id' => rand(3, 24),
                 'category_id' => rand(1, 10),
-                'submitted_at' => now(),
-                'approved_at' => now(),
+                'published_at' => now(),
                 'views_count' => rand(1,999),
             ]);
 
@@ -101,6 +99,13 @@ class DatabaseSeeder extends Seeder
                 'user_id' => rand(3, 24),
                 'post_id' => rand(1, 22),
                 'spam_reports' => rand(0, 20),
+            ]);
+        }
+
+        for($i = 1; $i <= 24; $i++){
+            Profile::factory()->create([
+                'user_id' => $i,
+                'twitter' => 'd3215k'
             ]);
         }
     }

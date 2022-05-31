@@ -64,6 +64,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
     public function type()
     {
         return $this->type;
@@ -87,5 +92,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }
