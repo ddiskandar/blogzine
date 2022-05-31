@@ -27,13 +27,9 @@ class Post extends Model
         return Str::limit(strip_tags($this->body), $limit);
     }
 
-    public function thumbnail($width = 200, $height = 200)
+    public function getThumbnail()
     {
-        if ($this->thumbnail) {
-            return $this->thumbnail;
-        }
-
-        return asset('images/default-background.svg');
+        return $this->thumbnail ?? asset('images/default-background.svg');
     }
 
     public function comments()

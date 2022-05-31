@@ -5,6 +5,14 @@
                 <x-jet-application-mark class="block h-9 w-auto" />
                 <h1 class="font-serif text-3xl ml-2">Blogzine</h1>
             </a>
+            @auth
+            <div>
+                <a href="{{ route('home') }}"
+                class="px-4 py-2 text-sm text-white bg-black hover:bg-gray-900 rounded-full">
+                    Home
+                </a>
+            </div>
+            @else
             <ul class="flex justify-end gap-4 text-sm">
                 <li>
                     <button>
@@ -15,11 +23,12 @@
                     <div>
                         <a href="/register"
                         class="px-4 py-2 text-sm text-white bg-black hover:bg-gray-900 rounded-full">
-                        Register
-                    </a>
+                            Register
+                        </a>
                     </div>
                 </li>
             </ul>
+            @endauth
         </div>
     </header>
     <section class="border-b border-black bg-emerald-400" id="hero" >
@@ -27,7 +36,7 @@
             <div class="py-20 flex-2">
                 <h1 class="font-serif text-8xl">Stay curious.</h1>
                 <p class="max-w-md mt-6 text-2xl leading-tight">Discover stories, thinking, and expertise from writers on any topic.</p>
-                <a href="/register" class="">
+                <a href="{{ route('home') }}" class="">
                     <button class="px-12 py-2 mt-8 text-xl text-white bg-black hover:bg-gray-900 rounded-full">Start reading</button>
                 </a>
             </div>

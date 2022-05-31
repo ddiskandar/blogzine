@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -49,7 +51,17 @@ class PostController extends Controller
             'category_id' => $request->categoryId,
         ]);
 
-        return to_route('me')->banner('Story has been succesfully added!.');;
+        if($request->hasFile('thumbnail'))
+        {
+            $thumbnail = $request->thumbnail;
+            $file_name = time().'-'.$thumbnail->getClientOriginalName();
+            $thumbnail->move('images/thumbnail/', $file_name);
+            $post->update([
+                'thumbnail' => '/images/thumbnail/' . $file_name,
+            ]);
+        }
+
+        return to_route('post.edit', $post->slug);
     }
 
     /**
@@ -61,6 +73,11 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $post = $post;
+
+        $post->update([
+            'views_count' => $post->views_count + 1,
+        ]);
+
         $post->load('author', 'author.profile')->loadCount('likes', 'comments');
 
         $author_posts = Post::query()
@@ -86,7 +103,12 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::all();
+
+        return view('post.edit', [
+            'categories' => $categories,
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -98,7 +120,35 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'category_id' => $request->categoryId,
+        ]);
+
+        if($request->status == 'published')
+        {
+            $post->update([
+                'published_at' => now()
+            ]);
+        } else {
+            $post->update([
+                'published_at' => NULL
+            ]);
+        }
+
+        if($request->hasFile('thumbnail'))
+        {
+            File::delete($post->thumbnail);
+            $thumbnail = $request->thumbnail;
+            $file_name = time().'-'.$thumbnail->getClientOriginalName();
+            $thumbnail->move('images/thumbnail/', $file_name);
+            $post->update([
+                'thumbnail' => '/images/thumbnail/' . $file_name,
+            ]);
+        }
+
+        return to_route('me')->banner('Story has been succesfully saved!.');
     }
 
     /**

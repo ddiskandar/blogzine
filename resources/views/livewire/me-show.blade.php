@@ -1,4 +1,4 @@
-<div>
+<div class="mt-6 md:mt-0">
     <div class="text-sm md:items-center text-slate-600 md:flex md:justify-between">
         <div class="flex items-center gap-4">
             <span>STORIES</span>
@@ -23,7 +23,7 @@
             @forelse ($posts as $post)
             <li class="flex gap-6">
                 <div class="shrink-0">
-                    <img class="object-cover w-24 h-24 md:h-36 md:w-48" src="{{ $post->thumbnail() }}" alt="">
+                    <img class="object-cover w-24 h-24 md:h-36 md:w-48" src="{{ $post->getThumbnail() }}" alt="">
                 </div>
                 <div class="space-y-1 flex-1">
                     <div class="flex items-center mb-2 text-xs md:text-sm justify-between text-slate-600 ">
@@ -64,22 +64,12 @@
                             class="absolute right-0 origin-top-right mt-2 w-40 shadow-xl overflow-hidden border rounded z-10"
                             >
                             <div class="bg-white ring-1 ring-black ring-opacity-5 rounded divide-y divide-gray-100">
-                                <div class="">
-                                    <button x-on:click="open = false" wire:click="markAsSpam({{ $post->id }})" onclick="confirm('Yakin mau ditandai sebagai spam?') || event.stopImmediatePropagation()" type="button" class="flex w-full items-center space-x-2 py-2 px-4 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700">
-                                        Mark As Spam
-                                    </button>
-                                    <button x-on:click="open = false" wire:click="notSpam({{ $post->id }})" onclick="confirm('Yakin mau direset?') || event.stopImmediatePropagation()" type="button" class="flex w-full items-center space-x-2 py-2 px-4 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700">
-                                        Not Spam
-                                    </button>
-                                </div>
-                                <div class="">
-                                    <a role="menuitem" href="{{ route('post.edit', $post->slug) }}" class="flex items-center space-x-2 py-2 px-4 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700">
-                                        <span>Edit</span>
-                                    </a>
-                                    <button x-on:click="open = false" wire:click="delete({{ $post->id }})" onclick="confirm('Yakin mau dihapus?') || event.stopImmediatePropagation()" type="button" class="flex w-full items-center space-x-2 py-2 px-4 text-sm font-medium text-red-600 hover:bg-red-700 hover:text-white focus:outline-none focus:bg-red-700 focus:text-white">
-                                        <span>Delete</span>
-                                    </button>
-                                </div>
+                                <a role="menuitem" href="{{ route('post.edit', $post->slug) }}" class="flex items-center space-x-2 py-2 px-4 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700">
+                                    <span>Edit</span>
+                                </a>
+                                <button x-on:click="open = false" wire:click="delete({{ $post->id }})" onclick="confirm('Yakin mau dihapus?') || event.stopImmediatePropagation()" type="button" class="flex w-full items-center space-x-2 py-2 px-4 text-sm font-medium text-red-600 hover:bg-red-700 hover:text-white focus:outline-none focus:bg-red-700 focus:text-white">
+                                    <span>Delete</span>
+                                </button>
                             </div>
                             </div>
                         </div>
@@ -125,13 +115,13 @@
             @empty
             <div class="flex flex-col gap-6 items-center py-16">
                 <div>No stories found.</div>
-                <div><a href="/new-story" class="font-medium hover:underline ">Write</a> a story.</div>
+                <div><a href="/new-story" class="font-medium underline ">Write</a> a story.</div>
             </div>
             @endforelse
         </ul>
         @if ($take < $posts_count)
         <div class="py-12 flex justify-center w-full">
-            <div wire:loading class="text-sm">
+            <div  wire:loading wire:target="more" class="text-sm">
                 Loading...
             </div>
             <button wire:loading.remove wire:click="more" type="button" class="py-1 px-6 border rounded-full bg-slate-50 hover:bg-slate-100 text-sm">Buka lebih banyak</button>

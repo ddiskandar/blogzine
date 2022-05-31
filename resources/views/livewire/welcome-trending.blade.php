@@ -9,11 +9,11 @@
                     <div class="flex-1 ml-4 space-y-1">
                         <div class="flex space-x-1">
                             <img class="object-cover w-6 h-6 rounded-full mr-2" src="{{ $post->author->profile_photo_url }}" alt="">
-                            <div><a href="/user" class="font-semibold hover:underline">{{ $post->author->username }}</a></div>
+                            <div><a href="{{ route('user.show', $post->author->username) }}" class="font-semibold hover:underline">{{ $post->author->username }}</a></div>
                             <span>di</span>
-                            <div><a href="/category" class="font-semibold hover:underline">{{ $post->category->name }}</a></div>
+                            <div><a href="{{ route('category.show', $post->category->slug) }}" class="font-semibold hover:underline">{{ $post->category->name }}</a></div>
                         </div>
-                        <h3 class="font-black hover:underline"><a href="/single">{{ $post->title }}</a></h3>
+                        <h3 class="font-black hover:underline"><a href="{{ route('post.show', $post->slug) }}">{{ $post->title }}</a></h3>
                         <div class="text-slate-600">{{ $post->published_at->isoFormat('DD MMMM YYYY') }} · {{ $post->readTime() }} menit baca</div>
                     </div>
                 </li>

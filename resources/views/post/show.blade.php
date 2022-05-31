@@ -90,11 +90,11 @@
                     @foreach ($author_posts as $post)
                     <li class="py-2 flex gap-4">
                         <div class="shrink-0">
-                            <img class="object-cover w-14 h-14 " src="{{ $post->thumbnail() }}" alt="">
+                            <img class="object-cover w-14 h-14 " src="{{ $post->getThumbnail() }}" alt="">
                         </div>
                         <div>
                             <div class="text-sm">
-                                {{ $post->published_at->isoFormat('DD MMMM YYYY') }} · {{ $post->category->name }}
+                                {{ $post->published_at->isoFormat('DD MMMM YYYY') }} · <a href="{{ route('category.show', $post->category->slug) }}" class="font-semibold hover:underline">{{ $post->category->name }}</a>
                             </div>
                             <a href="{{ route('post.show', $post->slug) }}">
                                 <h2 class="text-md font-bold hover:underline leading-tight">{{ $post->title }}</h2>

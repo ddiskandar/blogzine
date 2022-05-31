@@ -52,11 +52,14 @@ class HomeRecent extends Component
         $data = Post::query()
             ->with('author', 'category')
             ->withCount('likes', 'comments')
-            ->when($this->filter == 'Popular', function($query){
-                $query->popular();
+            ->when($this->filter == 'Comment', function($query){
+                $query->orderBy('comments_count', 'desc');
             })
-            ->when($this->filter == 'Trending', function($query){
-                $query->trending();
+            ->when($this->filter == 'View', function($query){
+                $query->orderBy('views_count', 'desc');
+            })
+            ->when($this->filter == 'Like', function($query){
+                $query->orderBy('likes_count', 'desc');
             })
             ->when($this->filter == 'Spam', function($query){
                 $query->where('spam_reports', '>', '0')
