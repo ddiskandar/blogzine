@@ -38,17 +38,17 @@ class DatabaseSeeder extends Seeder
         Category::factory()->create(['name' => 'Intertia', 'slug' => 'intertia']);
 
         $admin = User::factory()->create([
-            'name' => 'Administrator',
+            'name' => 'Indokoding',
             'username' => 'admin',
-            'email' => 'admin@exmple.com',
+            'email' => 'admin@example.com',
             'password' => bcrypt('secret'),
             'type' => User::ADMIN,
         ]);
 
         $moderator = User::factory()->create([
-            'name' => 'Moderator',
+            'name' => 'Indokoding',
             'username' => 'moderator',
-            'email' => 'moderator@exmple.com',
+            'email' => 'moderator@example.com',
             'password' => bcrypt('secret'),
             'type' => User::MODERATOR,
         ]);
